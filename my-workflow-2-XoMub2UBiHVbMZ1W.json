@@ -1,0 +1,72 @@
+{
+  "updatedAt": "2026-04-24T15:41:16.311Z",
+  "createdAt": "2026-04-24T14:57:05.714Z",
+  "id": "XoMub2UBiHVbMZ1W",
+  "name": "My workflow 2",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        -112
+      ],
+      "id": "50287b56-2ae3-4d77-8da8-a1c56a767bbe",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "instanceName": "starlingsoftware@gmail.com",
+        "token": "Melanciacomlaranja#1994",
+        "options_Create_instance": {}
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        -80,
+        -160
+      ],
+      "id": "476d56aa-7b7d-4b0e-a0c9-ef2a772b9ad2",
+      "name": "Criar instancia",
+      "credentials": {
+        "evolutionApi": {
+          "id": "1Mc7SAJRmwr2uU9A",
+          "name": "Evolution account 2"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "4e1d9275-2075-4233-b6c3-37ab25669c0d",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-04-24T14:57:05.717Z",
+      "createdAt": "2026-04-24T14:57:05.717Z",
+      "role": "workflow:owner",
+      "workflowId": "XoMub2UBiHVbMZ1W",
+      "projectId": "tfq4HSYA9IXkO6hu"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}

@@ -1,0 +1,95 @@
+{
+  "updatedAt": "2026-04-27T20:30:48.215Z",
+  "createdAt": "2026-04-24T20:22:17.206Z",
+  "id": "BJPJK94kFLHIwSX1",
+  "name": "chat01",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -656,
+        -112
+      ],
+      "id": "5e7a35a5-5e66-417c-9784-df2201e356c3",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6cdd2e31-a428-4c44-bfb8-b3862bcbaec0",
+              "name": "comprimento",
+              "value": "=Hello {{ $json.name }} world estamos {{$json.status}} ",
+              "type": "string"
+            },
+            {
+              "id": "0dccc437-e8e6-4d7d-b0b5-b68cdadc1036",
+              "name": "name",
+              "value": "={{ $json.name }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -448,
+        -112
+      ],
+      "id": "23998e1d-6baa-471f-b2d8-57f877a85248",
+      "name": "Edit Fields"
+    }
+  ],
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {
+    "When clicking ‘Execute workflow’": [
+      {
+        "json": {
+          "name": "Paulo",
+          "status": "Ativo"
+        }
+      }
+    ]
+  },
+  "versionId": "3fb4b8fa-d0da-48f4-acf7-218169c05a0a",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-04-24T20:22:17.210Z",
+      "createdAt": "2026-04-24T20:22:17.210Z",
+      "role": "workflow:owner",
+      "workflowId": "BJPJK94kFLHIwSX1",
+      "projectId": "tfq4HSYA9IXkO6hu"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}

@@ -1,0 +1,55 @@
+{
+  "updatedAt": "2026-04-24T20:10:19.468Z",
+  "createdAt": "2026-04-24T17:33:57.355Z",
+  "id": "EbXKlVzt3ny1VT7w",
+  "name": "Automated product inquiry responder with GPT-4 and Google Sheets",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        736,
+        528
+      ],
+      "id": "9a7d04ac-4daa-4a33-81f9-0229f5d0f2b7",
+      "name": "When chat message received",
+      "webhookId": "63830d7f-1bde-452c-8ec4-71320f129ca9"
+    }
+  ],
+  "connections": {
+    "When chat message received": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": {
+    "templateId": "5809",
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "c0a98108-181e-4fb9-bbca-76522a78c0e4",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-04-24T17:33:57.359Z",
+      "createdAt": "2026-04-24T17:33:57.359Z",
+      "role": "workflow:owner",
+      "workflowId": "EbXKlVzt3ny1VT7w",
+      "projectId": "tfq4HSYA9IXkO6hu"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}

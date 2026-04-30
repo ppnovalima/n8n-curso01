@@ -1,0 +1,88 @@
+{
+  "updatedAt": "2026-04-24T16:02:17.043Z",
+  "createdAt": "2026-04-24T15:51:22.500Z",
+  "id": "OQqfPfWmYvBq9DdD",
+  "name": "My workflow 3",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "path": "http://localhost:5678/webhook-test/013329c9-3a51-4bde-8a92-4cb91a812a08",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "146ed4bf-a9c8-4da6-8d3e-410e1b49f6c2",
+      "name": "Webhook",
+      "webhookId": "013329c9-3a51-4bde-8a92-4cb91a812a08"
+    },
+    {
+      "parameters": {
+        "resource": "messages-api",
+        "instanceName": "https://n8n.starling.com.br",
+        "remoteJid": "5531988858034",
+        "messageText": "Ola benvindo",
+        "options_message": {
+          "quoted": {
+            "messageQuoted": {}
+          }
+        }
+      },
+      "type": "n8n-nodes-evolution-api.evolutionApi",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "cf5863b6-6580-4509-be5d-6892a79dc561",
+      "name": "Enviar texto",
+      "credentials": {
+        "evolutionApi": {
+          "id": "1Mc7SAJRmwr2uU9A",
+          "name": "Evolution account 2"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Enviar texto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "acaa5e43-e502-4048-bc88-07dc5a8e6de6",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-04-24T15:51:22.503Z",
+      "createdAt": "2026-04-24T15:51:22.503Z",
+      "role": "workflow:owner",
+      "workflowId": "OQqfPfWmYvBq9DdD",
+      "projectId": "tfq4HSYA9IXkO6hu"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}

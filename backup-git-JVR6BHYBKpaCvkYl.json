@@ -1,0 +1,360 @@
+{
+  "updatedAt": "2026-04-30T14:47:53.630Z",
+  "createdAt": "2026-04-28T12:37:38.954Z",
+  "id": "JVR6BHYBKpaCvkYl",
+  "name": "backup-git",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "minutes",
+              "minutesInterval": 3
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a11e2910-3b9e-464d-8590-99d6ab456524",
+      "name": "Schedule Trigger"
+    },
+    {
+      "parameters": {
+        "filters": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-base.n8n",
+      "typeVersion": 1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "c84d15df-ca92-4636-8a73-bc2d18c9290c",
+      "name": "Get many workflows",
+      "credentials": {
+        "n8nApi": {
+          "id": "5kKpB2qRRYHS9KuZ",
+          "name": "n8n account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        416,
+        0
+      ],
+      "id": "e9f73d58-dcdb-4e7a-aa8e-355092a96dad",
+      "name": "Loop Over Items",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "jsCode": "// Convert workflow JSON to base64 for GitHub API\nconst workflow = $input.first().json;\n\n// Build a clean filename: workflow-name-ID.json\n// Replace characters that cause issues in filenames\nconst safeName = workflow.name\n  .replace(/[^a-zA-Z0-9-_]/g, '-')\n  .replace(/-+/g, '-')\n  .toLowerCase();\n\nconst fileName = `${safeName}-${workflow.id}.json`;\nconst content = Buffer.from(JSON.stringify(workflow, null, 2)).toString('base64');\n\nreturn [{ json: { fileName, content, workflowId: workflow.id } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        624,
+        16
+      ],
+      "id": "7d885c75-6192-4198-8ae2-48265ed6d055",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "get",
+        "owner": {
+          "__rl": true,
+          "value": "ppnovalima",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "n8n-curso01",
+          "mode": "list",
+          "cachedResultName": "n8n-curso01",
+          "cachedResultUrl": "https://github.com/ppnovalima/n8n-curso01"
+        },
+        "filePath": "={{ $json.fileName }}",
+        "binaryPropertyName": "=data {{ $json.content }}",
+        "additionalParameters": {}
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        832,
+        16
+      ],
+      "id": "52f76ae3-7956-47ae-a2b4-a95924a02925",
+      "name": "Get a file1",
+      "webhookId": "e8b854a5-84b5-4ff0-af86-55daa05c8716",
+      "credentials": {
+        "githubApi": {
+          "id": "8BUm3iTz1AWg5sEN",
+          "name": "GitHub account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "f27a509e-b662-4a6e-afce-b96736ccaf43",
+              "leftValue": "={{ $json.sha }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1008,
+        0
+      ],
+      "id": "8810eeb2-9bb7-4df7-84f1-ec776a5997a9",
+      "name": "If2",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "owner": {
+          "__rl": true,
+          "value": "ppnovalima",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "n8n-curso01",
+          "mode": "list",
+          "cachedResultName": "n8n-curso01",
+          "cachedResultUrl": "https://github.com/ppnovalima/n8n-curso01"
+        },
+        "filePath": "={{ $('Code in JavaScript').item.json.fileName }}",
+        "fileContent": "={{ $('Code in JavaScript').item.json.content }}",
+        "commitMessage": "Arquivo Criado e gravado"
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        1200,
+        -272
+      ],
+      "id": "f774eecd-ab9d-44ca-8cc3-3913f4053da7",
+      "name": "Create a file",
+      "webhookId": "a924b089-abb9-483d-98a9-39cfc2e99890",
+      "credentials": {
+        "githubApi": {
+          "id": "8BUm3iTz1AWg5sEN",
+          "name": "GitHub account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "resource": "file",
+        "operation": "edit",
+        "owner": {
+          "__rl": true,
+          "value": "ppnovalima",
+          "mode": "name"
+        },
+        "repository": {
+          "__rl": true,
+          "value": "n8n-curso01",
+          "mode": "list",
+          "cachedResultName": "n8n-curso01",
+          "cachedResultUrl": "https://github.com/ppnovalima/n8n-curso01"
+        },
+        "filePath": "={{ $('Code in JavaScript').item.json.fileName }}",
+        "fileContent": "={{ $('Code in JavaScript').item.json.content }}",
+        "commitMessage": "Arquivo Atualizado "
+      },
+      "type": "n8n-nodes-base.github",
+      "typeVersion": 1.1,
+      "position": [
+        1232,
+        208
+      ],
+      "id": "a0cd658e-e261-4688-9e52-af48f73746bc",
+      "name": "Edit a file",
+      "webhookId": "e183b489-0209-4d75-ab39-872cdf5fc9a5",
+      "credentials": {
+        "githubApi": {
+          "id": "8BUm3iTz1AWg5sEN",
+          "name": "GitHub account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.noOp",
+      "typeVersion": 1,
+      "position": [
+        624,
+        -96
+      ],
+      "id": "10573f4b-2505-44ce-83b6-0d7ec444a648",
+      "name": "No Operation, do nothing"
+    }
+  ],
+  "connections": {
+    "Schedule Trigger": {
+      "main": [
+        [
+          {
+            "node": "Get many workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get many workflows": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "No Operation, do nothing",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Get a file1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get a file1": {
+      "main": [
+        [
+          {
+            "node": "If2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If2": {
+      "main": [
+        [
+          {
+            "node": "Create a file",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit a file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit a file": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a file": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "1ec2f2b6-61e4-4b8e-82d7-35adf0597651",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-04-28T12:37:38.958Z",
+      "createdAt": "2026-04-28T12:37:38.958Z",
+      "role": "workflow:owner",
+      "workflowId": "JVR6BHYBKpaCvkYl",
+      "projectId": "tfq4HSYA9IXkO6hu"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}
